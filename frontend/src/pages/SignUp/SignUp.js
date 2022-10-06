@@ -1,5 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import Logo from '../../assets/logo.svg';
+import './SignUp.css';
 
 const SignUp = () => {
   const handleSubmit = (event) => {
@@ -11,10 +13,10 @@ const SignUp = () => {
   };
   return (
     <>
-      <FormContainer>
+      <div className="main-div">
         <form onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
-            <img src="" alt=""></img>
+            <img src={Logo} alt=""></img>
             <h1>Chat-App</h1>
           </div>
           <input
@@ -42,12 +44,13 @@ const SignUp = () => {
             onChange={(e) => handleChange(e)}
           />
           <button type="submit"> Create New Account</button>
+          <span>
+            If you have already an account ? <Link to="/signin">Login</Link>
+          </span>
         </form>
-      </FormContainer>
+      </div>
     </>
   );
 };
-
-const FormContainer = styled.div``;
 
 export default SignUp;
