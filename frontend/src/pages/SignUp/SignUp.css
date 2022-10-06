@@ -19,7 +19,6 @@
 }
 .brand h1 {
   color: white;
-  text-transform: uppercase;
 }
 form {
   display: flex;
@@ -56,6 +55,7 @@ button {
 button:hover {
   background-color: rgb(162, 0, 255);
 }
+
 span {
   color: white;
   text-transform: uppercase;

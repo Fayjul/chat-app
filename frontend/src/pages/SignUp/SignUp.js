@@ -1,15 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/logo.svg';
 import './SignUp.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const SignUp = () => {
+  const [user, setUser] = useState({
+    userName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+  const handleValidation = () => {
+    const { password, confirmPassword } = user;
+    if (password !== confirmPassword) {
+      toast.error("Password don't match", {
+        position: 'bottom-center',
+      });
+      return false;
+    } else if (password.length < 8) {
+      toast.error('Password length should more than 8 ', {
+        position: 'bottom-center',
+      });
+      return false;
+    } else {
+      return true;
+    }
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert('form');
+    if (handleValidation()) {
+      console.log(user);
+    } else {
+      console.log('There is an error');
+    }
   };
   const handleChange = (event) => {
-    console.log('Hello');
+    setUser({ ...user, [event.target.name]: event.target.value });
   };
   return (
     <>
@@ -17,12 +45,12 @@ const SignUp = () => {
         <form onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
             <img src={Logo} alt=""></img>
-            <h1>Chat-App</h1>
+            <h1>CHAT-APP</h1>
           </div>
           <input
             type="text"
             placeholder="User Name"
-            name="username"
+            name="userName"
             onChange={(e) => handleChange(e)}
           />
           <input
@@ -49,6 +77,7 @@ const SignUp = () => {
           </span>
         </form>
       </div>
+      <ToastContainer />
     </>
   );
 };
