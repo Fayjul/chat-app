@@ -4,6 +4,8 @@ import Logo from '../../assets/logo.svg';
 import './SignUp.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+import { signUpRouter } from '../../utils/APIRoutes';
 
 const SignUp = () => {
   const [user, setUser] = useState({
@@ -28,10 +30,16 @@ const SignUp = () => {
       return true;
     }
   };
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (handleValidation()) {
-      console.log(user);
+      // console.log(user);
+      const { email, userName, password } = user;
+      const { data } = await axios.post(signUpRouter, {
+        userName,
+        email,
+        password,
+      });
     } else {
       console.log('There is an error');
     }
