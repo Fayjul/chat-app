@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import authRouter from './routers/authRouters.js';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -16,7 +18,11 @@ mongoose
 const app = express();
 
 app.use(express.json());
-
+app.use(cors());
+app.get('/', (req, res) => {
+  res.send('Allhu Akbar');
+});
+app.use('/api/auth', authRouter);
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
