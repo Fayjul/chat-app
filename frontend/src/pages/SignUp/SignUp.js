@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/logo.svg';
 import './SignUp.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -8,6 +8,7 @@ import axios from 'axios';
 import { signUpRouter } from '../../utils/APIRoutes';
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState({
     userName: '',
     email: '',
@@ -41,11 +42,13 @@ const SignUp = () => {
         password,
       });
       if (data.status === true) {
-        toast.success('data goto backend successfully', {
-          position: 'bottom-center',
-        });
+        localStorage.setItem(
+          process.env.REACT_APP_LOCAL_HOST_KEY,
+          JSON.stringify(data.user)
+        );
+        navigate('/');
       } else {
-        toast.error("Data is't is backend", {
+        toast.error(data.msg, {
           position: 'bottom-center',
         });
       }

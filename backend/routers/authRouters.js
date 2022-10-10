@@ -17,7 +17,7 @@ authRouter.post('/signup', async (req, res, next) => {
       userName,
       password: hashedPassword,
     });
-    return res.json({ status: true, user });
+    return res.json({ status: true, user, msg: 'Account create successfull' });
   } catch (ex) {
     console.log('There is an error');
     next(ex);
