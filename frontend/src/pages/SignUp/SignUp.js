@@ -40,6 +40,15 @@ const SignUp = () => {
         email,
         password,
       });
+      if (data.status === true) {
+        toast.success('data goto backend successfully', {
+          position: 'bottom-center',
+        });
+      } else {
+        toast.error("Data is't is backend", {
+          position: 'bottom-center',
+        });
+      }
     } else {
       console.log('There is an error');
     }
