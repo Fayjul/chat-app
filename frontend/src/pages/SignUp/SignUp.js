@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/logo.svg';
 import './SignUp.css';
@@ -15,6 +15,11 @@ const SignUp = () => {
     password: '',
     confirmPassword: '',
   });
+  useEffect(() => {
+    if (localStorage.getItem(process.env.REACT_APP_LOCAL_HOST_KEY)) {
+      navigate('/');
+    }
+  }, []);
   const handleValidation = () => {
     const { password, confirmPassword } = user;
     if (password !== confirmPassword) {

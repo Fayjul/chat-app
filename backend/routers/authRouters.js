@@ -24,6 +24,25 @@ authRouter.post('/signup', async (req, res, next) => {
   }
 });
 
+authRouter.post('/signin', async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    //console.log(email, password);
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.json({ msg: 'Incorrect Username or Password', status: false });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.json({ msg: 'Incorrect Username or Password', status: false });
+    }
+    return res.json({ status: true, user });
+  } catch (ex) {
+    console.log('There is an error');
+    next(ex);
+  }
+});
+
 authRouter.get('/', (req, res) => {
   res.send('Bismillah hir Rahmanir Rahim');
 });
