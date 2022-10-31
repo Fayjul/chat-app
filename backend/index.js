@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import authRouter from './routers/authRouters.js';
 import cors from 'cors';
+import userRouter from './routers/userRouter.js';
 
 dotenv.config();
 
@@ -24,7 +25,7 @@ app.get('/', (req, res) => {
 });
 app.use('/api/auth', authRouter);
 const port = process.env.PORT || 4000;
-
+app.use('/api/setavatar', userRouter);
 app.listen(port, () => {
   console.log(`server at http://localhost:${port}`);
 });

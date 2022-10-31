@@ -5,6 +5,7 @@ import loader from '../../assets/loader.gif';
 import './Avater.css';
 import { Buffer } from 'buffer';
 import { ToastContainer, toast } from 'react-toastify';
+import { setAvaterRouter } from '../../utils/APIRoutes';
 
 const Avater = () => {
   const api = `https://api.multiavatar.com/4645646`;
@@ -16,6 +17,26 @@ const Avater = () => {
   const setProfilePicture = async () => {
     if (selectedAvater === undefined) {
       toast.error('Please select an avatar', { position: 'bottom-center' });
+    } else {
+      const user = await JSON.parse(
+        localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
+      );
+      const { data } = await axios.post(`${setAvaterRouter}/${user._id}`, {
+        image: avaters[selectedAvater],
+      });
+      if (data.isSet) {
+        user.isAvatarImageSet = true;
+        console.log('This come from backend');
+        user.avatarImage = data.image;
+        localStorage.setItem(
+          process.env.REACT_APP_LOCALHOST_KEY,
+          JSON.stringify(user)
+        );
+      } else {
+        toast.error('Error setting avatar. Please try again.', {
+          position: 'bottom-center',
+        });
+      }
     }
   };
 

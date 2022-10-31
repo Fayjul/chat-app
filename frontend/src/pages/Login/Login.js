@@ -38,7 +38,6 @@ const Login = () => {
         password,
       });
       if (data.status === true) {
-        console.log(data.user);
         localStorage.setItem(
           process.env.REACT_APP_LOCAL_HOST_KEY,
           JSON.stringify(data.user)
