@@ -32,6 +32,7 @@ const Avater = () => {
           process.env.REACT_APP_LOCALHOST_KEY,
           JSON.stringify(user)
         );
+        navigate('/');
       } else {
         toast.error('Error setting avatar. Please try again.', {
           position: 'bottom-center',
@@ -56,7 +57,13 @@ const Avater = () => {
   useEffect(() => {
     asyncLoadData();
   }, []);
-
+  const isLogIn = async () => {
+    if (!localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY))
+      navigate('/signin');
+  };
+  useEffect(() => {
+    isLogIn();
+  }, []);
   return (
     <>
       {isLoading ? (
