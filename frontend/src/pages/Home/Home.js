@@ -16,13 +16,13 @@ export default function Home() {
       const userFromLocalStorage = await JSON.parse(
         localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
       );
-      //console.log(userFromLocalStorage);
+      console.log(userFromLocalStorage);
       setCurrentUser(userFromLocalStorage);
-      console.log(currentUser);
-      if (currentUser.isAvatarImageSet) {
+      console.log(currentUser.isAvatarImageSet);
+      if (currentUser.isAvatarImageSet === true) {
         const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
         setContacts(data.data);
-        console.log(currentUser);
+        console.log(contacts);
       } else {
         navigate('/avater');
       }
@@ -52,7 +52,7 @@ export default function Home() {
 */
   return (
     <div className="main-div">
-      <h1 className="brand">Wellcome to our Chat App</h1>
+      <h1 className="brand">Wellcome to this Chat App</h1>
     </div>
   );
 }

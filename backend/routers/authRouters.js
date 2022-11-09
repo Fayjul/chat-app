@@ -42,7 +42,19 @@ authRouter.post('/signin', async (req, res, next) => {
     next(ex);
   }
 });
-
+authRouter.get('/allusers/:id', async (req, res, next) => {
+  try {
+    const users = await User.find({ _id: { $ne: req.params.id } }).select([
+      'email',
+      'username',
+      'avatarImage',
+      '_id',
+    ]);
+    return res.json(users);
+  } catch (ex) {
+    next(ex);
+  }
+});
 authRouter.get('/', (req, res) => {
   res.send('Bismillah hir Rahmanir Rahim');
 });
